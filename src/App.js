@@ -2,10 +2,6 @@ import React from 'react';
 import Tree from './components/Tree';
 import { TreeContext } from './context';
 import { reducer } from './reducer';
-import {
-  EXPAND_ALL,
-  COLLAPSE_ALL
-} from './constants';
 import ToggleAllButton from './components/ToggleAllButton';
 import './App.css';
 
@@ -47,26 +43,9 @@ const testData = [
   }
 ];
 
-const geAllIds = data => {
-  let ids = [];
-
-  data.forEach(({id, children}) => {
-    const hasChildren = children && children.length;
-
-    if(hasChildren) {
-      ids = ids.concat(geAllIds(children));
-    }
-    ids.push(id)
-  });
-
-  return ids;
-};
-
 const App = () => {
   const [expandedList, dispatch] = useReducer(reducer, []);
-  const allIds = geAllIds(testData);
-  const expanded = expandedList.length === allIds.length;
-  const clickHandler = () => expanded ? dispatch({type: COLLAPSE_ALL}) : dispatch({type: EXPAND_ALL, payload: allIds});
+
   return (
     <div className="App">
       <TreeContext.Provider value={{
@@ -74,10 +53,10 @@ const App = () => {
         dispatch
       }}>
         <Tree data={testData} />
+        <div>
+          <ToggleAllButton data={testData} />
+        </div>
       </TreeContext.Provider>
-      <div>
-        <ToggleAllButton clickHandler={clickHandler} expanded={expanded} />
-      </div>
     </div>
   );
 }
