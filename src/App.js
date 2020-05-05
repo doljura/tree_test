@@ -1,24 +1,83 @@
 import React from 'react';
-import logo from './logo.svg';
+import Tree from './components/Tree';
+import { TreeContext } from './context';
+import { reducer } from './reducer';
+import {
+  EXPAND_ALL,
+  COLLAPSE_ALL
+} from './constants';
+import ToggleAllButton from './components/ToggleAllButton';
 import './App.css';
 
-function App() {
+const { useReducer } = React;
+const testData = [
+  {
+    "name": "Name1",
+    "id": "1",
+    "children": [
+      {
+        "name": "Name11",
+        "id": "11",
+      },
+      {
+        "name": "Name12",
+        "id": "12",
+        "children": [
+          {
+            "name": "Name121",
+            "id": "121"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Name2",
+    "id": "2",
+    "children": [
+      {
+        "name": "Name21",
+        "id": "21",
+      },
+      {
+        "name": "Name22",
+        "id": "22",
+      }
+    ]
+  }
+];
+
+const geAllIds = data => {
+  let ids = [];
+
+  data.forEach(({id, children}) => {
+    const hasChildren = children && children.length;
+
+    if(hasChildren) {
+      ids = ids.concat(geAllIds(children));
+    }
+    ids.push(id)
+  });
+
+  return ids;
+};
+
+const App = () => {
+  const [expandedList, dispatch] = useReducer(reducer, []);
+  const allIds = geAllIds(testData);
+  const expanded = expandedList.length === allIds.length;
+  const clickHandler = () => expanded ? dispatch({type: COLLAPSE_ALL}) : dispatch({type: EXPAND_ALL, payload: allIds});
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TreeContext.Provider value={{
+        expandedList,
+        dispatch
+      }}>
+        <Tree data={testData} />
+      </TreeContext.Provider>
+      <div>
+        <ToggleAllButton clickHandler={clickHandler} expanded={expanded} />
+      </div>
     </div>
   );
 }

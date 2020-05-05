@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  margin: 5rem;
+}
+
+.App >div:last-child {
+  margin: 2rem;
+  display: flex;
+}
+
+.tree-row-wrapper {
+
+}
+
+.tree {
+  margin-left: 50px;
+}
+
+.tree-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid black;
+  width: 100px;
+}
+
+button {
+  cursor: pointer;
+}
