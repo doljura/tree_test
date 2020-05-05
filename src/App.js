@@ -34,6 +34,26 @@ const testData = [
       {
         "name": "Name21",
         "id": "21",
+        "children": [
+          {
+            "name": "Name211",
+            "id": "211"
+          },
+          {
+            "name": "Name212",
+            "id": "212"
+          },
+          {
+            "name": "Name213",
+            "id": "213",
+            "children": [
+              {
+                "name": "Name2131",
+                "id": "2131"
+              },
+            ]
+          }
+        ]
       },
       {
         "name": "Name22",
