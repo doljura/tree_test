@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tree from './Tree';
+import Rows from './Rows';
 import Button from './Button';
 import { TreeContext } from '../context';
 
@@ -19,7 +19,7 @@ const Row = ({ data: { name, id, children } }) => {
       </div>
       {
         expanded && hasChildren && (
-          <Tree data={children} />
+          <Rows data={children} />
         )
       }
     </div>

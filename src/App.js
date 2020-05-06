@@ -1,12 +1,9 @@
 import React from 'react';
 import Tree from './components/Tree';
-import { TreeContext } from './context';
-import { reducer } from './reducer';
-import ToggleAllButton from './components/ToggleAllButton';
+import UseStateExample from './components/UseStateExample';
 import './App.css';
 
-const { useReducer } = React;
-const testData = [
+const treeData = [
   {
     "name": "Name1",
     "id": "1",
@@ -63,22 +60,11 @@ const testData = [
   }
 ];
 
-const App = () => {
-  const [expandedList, dispatch] = useReducer(reducer, []);
-
-  return (
-    <div className="App">
-      <TreeContext.Provider value={{
-        expandedList,
-        dispatch
-      }}>
-        <Tree data={testData} />
-        <div>
-          <ToggleAllButton data={testData} />
-        </div>
-      </TreeContext.Provider>
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <Tree data={treeData} />
+    <UseStateExample />
+  </div>
+);
 
 export default App;

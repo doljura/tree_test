@@ -16,12 +16,13 @@ code {
   margin: 5rem;
 }
 
-.App >div:last-child {
+.tree-wrapper >div:last-child {
   margin: 2rem;
   display: flex;
+  margin-left: 50px;
 }
 
-.tree {
+.rows {
   margin-left: 50px;
 }
 
